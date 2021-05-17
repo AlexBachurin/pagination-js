@@ -26,8 +26,8 @@ const itemsOnPage = 4;
 nav.addEventListener('click', (e) => {
     const target = e.target;
     let currentPage;
-    itemsContainer.innerHTML = ''
     if (target.classList.contains('pagination__page')) {   
+        itemsContainer.innerHTML = ''
         currentPage = target.textContent;
         console.log(currentPage)
         showItems(currentPage)
