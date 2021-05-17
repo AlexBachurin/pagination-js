@@ -45,24 +45,28 @@ const items = [{
 
 window.addEventListener('DOMContentLoaded', () => {
     //get elems
-    const itemsContainer = document.querySelector('.pagination__items');
-    const nav = document.querySelector('.pagination__nav');
+    const itemsContainer = document.querySelector('.pagination__items'),
+          pageContainer = document.querySelector('.pagination__page-container'),
+          prevBtn = document.querySelector('.pagination__nav-btn_prev'),
+          nextBtn = document.querySelector('.pagination__nav-btn_next');
     //how many items should be shown on 1 page
     const itemsOnPage = 4;
+    //current page counter
+    let currentPage = 1;
+
     //setup App, pass in params which number of page u want to show
-    setupApp(1);
+    setupApp(currentPage);
 
     //get all li elements only after we created them(after setupApp function);
     const pages = document.querySelectorAll('.pagination__page')
 
-    //nav event listener, using delegation
-    nav.addEventListener('click', (e) => {
+    //pageContainer event listener, using delegation
+    pageContainer.addEventListener('click', (e) => {
         const target = e.target;
-        let currentPage;
+        
         if (target.classList.contains('pagination__page')) {
-            itemsContainer.innerHTML = ''; //clear container so items wont stack on each other
-            currentPage = target.textContent; //get number of page
-            console.log(currentPage)
+            
+            currentPage = +target.textContent; //get number of page
             showItems(currentPage) // show items for this page
             pages.forEach(page => {
                 page.classList.remove('active-page'); // remove active class from all pages
@@ -71,6 +75,33 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
     })
+    // **** BUTTONS HANDLERS ****
+    //prev
+    prevBtn.addEventListener('click', () => {
+        console.log(currentPage)
+        if (currentPage !== 1) {
+            currentPage--;
+            showItems(currentPage);
+            pages.forEach(page => {
+                page.classList.remove('active-page'); // remove active class from all pages
+            })
+            pages[currentPage - 1].classList.add('active-page');
+        }
+    })
+
+    //next 
+    nextBtn.addEventListener('click', () => {
+        console.log(currentPage)
+        if (currentPage !== pages.length ) {
+            currentPage++;
+            console.log(currentPage)
+            showItems(currentPage);
+            pages.forEach(page => {
+                page.classList.remove('active-page'); // remove active class from all pages
+            })
+            pages[currentPage - 1].classList.add('active-page');
+        }
+    })
 
     //dynamically show items on page
     function showItems(pageNumber) {
@@ -78,6 +109,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const from = (pageNumber - 1) * itemsOnPage;
         const to = from + itemsOnPage;
         const itemsToShow = items.slice(from, to) // get array for clicked page
+
+        itemsContainer.innerHTML = ''; //clear container so items wont stack on each other
 
         //show them on page
         itemsToShow.forEach(item => {
@@ -95,9 +128,9 @@ window.addEventListener('DOMContentLoaded', () => {
         for (let i = 1; i <= pagesToShow; i++) {
             //add default active class to passed pageNumber
             if (i === pageNumber) {
-                nav.innerHTML += `<li class="pagination__page active-page">${i}</li>`
+                pageContainer.innerHTML += `<li class="pagination__page active-page">${i}</li>`
             } else {
-                nav.innerHTML += `<li class="pagination__page">${i}</li>`
+                pageContainer.innerHTML += `<li class="pagination__page">${i}</li>`
             }
 
         }
@@ -108,8 +141,19 @@ window.addEventListener('DOMContentLoaded', () => {
     function setupApp(pageNumber) {
         //create and show pages
         showPages(pageNumber);
-        //show items from first page by default
+        //show items 
         showItems(pageNumber);
+        // placeButtons();
     }
+
+    // //properly place buttons
+    // function placeButtons() {
+    //     const pagesWidth = pageContainer.getBoundingClientRect().width;
+    //     console.log(pagesWidth);
+    
+    //     prevBtn.style.right = `${pagesWidth/2}px`
+    //     nextBtn.style.right = `${pagesWidth/2}px`    
+
+    // }
 
 })

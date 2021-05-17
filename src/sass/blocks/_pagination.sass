@@ -15,11 +15,30 @@
         color: #1E90FF
         font-size: 1.5rem
     &__nav
+        position: relative
+        display: grid
+        place-items: center
         margin-top: 30px
-        display: flex
-        justify-content: center
-        gap: 10px
+        // &-btns
+        //     position: absolute
+        &-btn
+            position: absolute
+            width: 50px
+            height: 20px
+            top: 50%
+            transform: translateY(-50%)
+            cursor: pointer
+            &_prev
+                left: 150px
+            &_next
+                right: 150px
+        
     &__page
+        &-container
+            
+            display: flex
+            justify-content: center
+            gap: 10px
         list-style: none
         min-width: 50px
         min-height: 30px
