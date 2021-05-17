@@ -1,0 +1,31 @@
+.pagination
+    padding-top: 150px
+    &__items
+        display: grid
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: 150px
+        grid-auto-rows: 150px
+        column-gap: 20px
+        grid-row-gap: 20px
+        min-height: 320px
+    &__item
+        border: 1px solid #000
+        display: grid
+        place-items: center
+        color: #1E90FF
+        font-size: 1.5rem
+    &__nav
+        margin-top: 30px
+        display: flex
+        justify-content: center
+        gap: 10px
+    &__page
+        list-style: none
+        min-width: 50px
+        min-height: 30px
+        border: 1px solid #000
+        display: grid
+        place-items: center
+        cursor: pointer
+        &:hover
+            background-color: #E9967A
