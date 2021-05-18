@@ -29,16 +29,11 @@
             transform: translateY(-50%)
             cursor: pointer
             &_prev
-                left: 150px
+                left: -60px
             &_next
-                right: 150px
-        
+                right: -60px
+
     &__page
-        &-container
-            
-            display: flex
-            justify-content: center
-            gap: 10px
         list-style: none
         min-width: 50px
         min-height: 30px
@@ -48,6 +43,11 @@
         cursor: pointer
         &:hover
             background-color: #E9967A
+        &-container
+            position: relative
+            display: flex
+            justify-content: center
+            gap: 10px
 
 .active-page
     background-color: #E9967A
